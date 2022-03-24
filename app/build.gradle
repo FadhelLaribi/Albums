@@ -41,6 +41,9 @@ dependencies {
     // Android Ktx
     implementation "androidx.core:core-ktx:${versions.androidxCoreKtx}"
 
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
+
     // UI
     implementation "androidx.appcompat:appcompat:${versions.androidxAppCompat}"
     implementation "com.google.android.material:material:${versions.material}"
@@ -58,7 +61,10 @@ dependencies {
 
     // Networking
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
+
     implementation "com.squareup.moshi:moshi:${versions.moshi}"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}"
 
     // DI
     implementation "com.google.dagger:hilt-android:${versions.hilt}"
