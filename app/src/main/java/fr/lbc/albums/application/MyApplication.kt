@@ -16,5 +16,7 @@ class MyApplication : Application() {
             Timber.plant(Timber.DebugTree())
 
         applySystemTheme()
+
+        Timber.d("onCreate")
     }
 }
