@@ -12,5 +12,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         val root = binding.root
         setContentView(root)
+
+        setSupportActionBar(binding.toolbar)
     }
 }
