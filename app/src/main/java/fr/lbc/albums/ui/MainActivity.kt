@@ -3,8 +3,10 @@ package fr.lbc.albums.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.databinding.ActivityMainBinding
+import fr.lbc.albums.utils.EventObserver
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -18,7 +20,17 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        ViewModelProvider(this)[AlbumsViewModel::class.java]
+        val adapter = AlbumsAdapter(binding.emptyView)
+        binding.recyclerView.adapter = adapter
 
+        ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
+            albumsLiveData.observe(this@MainActivity) {
+                adapter.setAlbums(it)
+            }
+
+            showError.observe(this@MainActivity, EventObserver { event ->
+                Snackbar.make(root, event.peek(), Snackbar.LENGTH_LONG).show()
+            })
+        }
     }
 }
