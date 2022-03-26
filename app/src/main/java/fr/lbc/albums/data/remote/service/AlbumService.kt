@@ -1,4 +1,4 @@
-package fr.lbc.albums.data.service
+package fr.lbc.albums.data.remote.service
 
 import fr.lbc.albums.data.model.Album
 import retrofit2.http.GET
