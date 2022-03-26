@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
         val adapter = AlbumsAdapter(binding.emptyView)
         binding.recyclerView.adapter = adapter
 
-        ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
+        val swipeRefresh = binding.swipeRefresh
+
+        val viewModel = ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
+
             albumsLiveData.observe(this@MainActivity, EventObserver { event ->
                 adapter.setAlbums(event.peek())
             })
@@ -31,6 +34,14 @@ class MainActivity : AppCompatActivity() {
             showError.observe(this@MainActivity, EventObserver { event ->
                 Snackbar.make(root, event.peek(), Snackbar.LENGTH_LONG).show()
             })
+
+            isLoading.observe(this@MainActivity, EventObserver { event ->
+                swipeRefresh.isRefreshing = event.peek()
+            })
+        }
+
+        swipeRefresh.setOnRefreshListener {
+            viewModel.refreshAlbums()
         }
     }
 }

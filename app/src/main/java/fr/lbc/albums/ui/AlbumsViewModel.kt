@@ -23,12 +23,16 @@ class AlbumsViewModel @Inject constructor(private val repository: AlbumRepositor
     private var _showError = MutableLiveData<Event<Int>>()
     val showError: LiveData<Event<Int>> = _showError
 
+    private var _isLoading = MutableLiveData<Event<Boolean>>()
+    val isLoading: LiveData<Event<Boolean>> = _isLoading
+
     init {
         refreshAlbums()
     }
 
-    private fun refreshAlbums() {
+    fun refreshAlbums() {
         viewModelScope.launch {
+            _isLoading.value = Event(true)
             val result = repository.refreshAlbums()
             if (result is Result.Success) {
                 Timber.d("Albums fetched successfully !!")
@@ -36,6 +40,7 @@ class AlbumsViewModel @Inject constructor(private val repository: AlbumRepositor
                 Timber.e("Error : ${(result as Result.Error).exception}")
                 _showError.value = Event(R.string.generic_error)
             }
+            _isLoading.value = Event(false)
         }
     }
 
