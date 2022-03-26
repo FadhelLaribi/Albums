@@ -10,7 +10,7 @@ import fr.lbc.albums.data.Result
 class AlbumRemoteDataSourceImpl @Inject constructor(private val albumService: AlbumService) :
     AlbumRemoteDataSource {
 
-    override suspend fun getAlbums(): Result<List<Album>> {
+    override suspend fun refreshAlbums(): Result<List<Album>> {
         return try {
             val albums = albumService.getAlbums()
             Result.Success(albums)

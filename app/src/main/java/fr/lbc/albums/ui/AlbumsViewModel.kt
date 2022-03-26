@@ -3,6 +3,7 @@ package fr.lbc.albums.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.lbc.albums.R
@@ -17,21 +18,20 @@ import javax.inject.Inject
 @HiltViewModel
 class AlbumsViewModel @Inject constructor(private val repository: AlbumRepository) : ViewModel() {
 
-    private var _albumsLiveData = MutableLiveData<List<Album>>()
-    val albumsLiveData: LiveData<List<Album>> = _albumsLiveData
+    val albumsLiveData: LiveData<Event<List<Album>>> = repository.getAlbums().asLiveData()
 
     private var _showError = MutableLiveData<Event<Int>>()
     val showError: LiveData<Event<Int>> = _showError
 
     init {
-        loadAlbums()
+        refreshAlbums()
     }
 
-    private fun loadAlbums() {
+    private fun refreshAlbums() {
         viewModelScope.launch {
-            val result = repository.getAlbums()
+            val result = repository.refreshAlbums()
             if (result is Result.Success) {
-                _albumsLiveData.value = result.data
+                Timber.d("Albums fetched successfully !!")
             } else {
                 Timber.e("Error : ${(result as Result.Error).exception}")
                 _showError.value = Event(R.string.generic_error)

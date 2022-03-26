@@ -24,9 +24,9 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
-            albumsLiveData.observe(this@MainActivity) {
-                adapter.setAlbums(it)
-            }
+            albumsLiveData.observe(this@MainActivity, EventObserver { event ->
+                adapter.setAlbums(event.peek())
+            })
 
             showError.observe(this@MainActivity, EventObserver { event ->
                 Snackbar.make(root, event.peek(), Snackbar.LENGTH_LONG).show()
