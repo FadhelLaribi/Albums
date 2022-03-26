@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Albums</string>
+    <string name="album_image_content_description">Image de l\'album</string>
+    <string name="no_albums">Aucun album n\'a été trouvé !</string>
+    <string name="generic_error">Une erreur est survenue. Veuillez vérifier votre connexion internet ou réessayer plus tard !</string>
 </resources>
