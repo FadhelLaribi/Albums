@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.databinding.ActivityMainBinding
 import fr.lbc.albums.utils.EventObserver
+import fr.lbc.albums.utils.MultipleEventObserver
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,12 +32,11 @@ class MainActivity : AppCompatActivity() {
                 adapter.setAlbums(event.peek())
             })
 
-            showError.observe(this@MainActivity, EventObserver { event ->
-                Snackbar.make(root, event.peek(), Snackbar.LENGTH_LONG).show()
-            })
-
-            isLoading.observe(this@MainActivity, EventObserver { event ->
-                swipeRefresh.isRefreshing = event.peek()
+            uiState.observe(this@MainActivity, MultipleEventObserver { event ->
+                when (event) {
+                    is SetRefreshing -> swipeRefresh.isRefreshing = event.peek()
+                    is ShowError -> Snackbar.make(root, event.peek(), Snackbar.LENGTH_LONG).show()
+                }
             })
         }
 

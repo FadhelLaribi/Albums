@@ -11,6 +11,8 @@ import fr.lbc.albums.data.Result
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.repository.AlbumRepository
 import fr.lbc.albums.utils.Event
+import fr.lbc.albums.utils.EventLiveData
+import fr.lbc.albums.utils.MutableEventLiveData
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,11 +22,8 @@ class AlbumsViewModel @Inject constructor(private val repository: AlbumRepositor
 
     val albumsLiveData: LiveData<Event<List<Album>>> = repository.getAlbums().asLiveData()
 
-    private var _showError = MutableLiveData<Event<Int>>()
-    val showError: LiveData<Event<Int>> = _showError
-
-    private var _isLoading = MutableLiveData<Event<Boolean>>()
-    val isLoading: LiveData<Event<Boolean>> = _isLoading
+    private var _uiState = MutableEventLiveData<MainEvent<Any>>()
+    val uiState: EventLiveData<MainEvent<Any>> = _uiState
 
     init {
         refreshAlbums()
@@ -32,16 +31,15 @@ class AlbumsViewModel @Inject constructor(private val repository: AlbumRepositor
 
     fun refreshAlbums() {
         viewModelScope.launch {
-            _isLoading.value = Event(true)
+            _uiState.event = SetRefreshing(true)
             val result = repository.refreshAlbums()
             if (result is Result.Success) {
                 Timber.d("Albums fetched successfully !!")
             } else {
                 Timber.e("Error : ${(result as Result.Error).exception}")
-                _showError.value = Event(R.string.generic_error)
+                _uiState.event = ShowError(R.string.generic_error)
             }
-            _isLoading.value = Event(false)
+            _uiState.event = SetRefreshing(false)
         }
     }
-
 }

@@ -13,3 +13,15 @@ class EventObserver<R>(private val onEventUnconsumed: (R) -> Unit) : Observer<R>
         (value as Event<*>).consume(onEventUnconsumed as (Event<*>) -> Unit)
     }
 }
+
+@Suppress("UNCHECKED_CAST")
+class MultipleEventObserver<R>(private val onEventUnconsumed: (R) -> Unit) : Observer<List<R>> {
+    override fun onChanged(value: List<R>) {
+        val events = value as List<Event<*>>
+        for (event in events) {
+            if (!event.hasBeenHandled) {
+                event.consume(onEventUnconsumed as (Event<*>) -> Unit)
+            }
+        }
+    }
+}
