@@ -43,5 +43,8 @@ class MainActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             viewModel.refreshAlbums()
         }
+
+        if (savedInstanceState == null)
+            viewModel.refreshAlbums()
     }
 }
