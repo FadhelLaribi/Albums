@@ -79,6 +79,8 @@ dependencies {
 
     // Test
     testImplementation "junit:junit:${versions.jUnit}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+
 
     androidTestImplementation "androidx.test.ext:junit:${versions.androidxTestJUnit}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.androidxTestEspresso}"
