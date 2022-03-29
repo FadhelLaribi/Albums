@@ -8,7 +8,6 @@ import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.repository.AlbumFakeRepository
 import fr.lbc.albums.getOrAwaitValue
 import fr.lbc.albums.utils.Event
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancelChildren
@@ -22,7 +21,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@DelicateCoroutinesApi
 @ExperimentalCoroutinesApi
 class AlbumsViewModelTest {
 
