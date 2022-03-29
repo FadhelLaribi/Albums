@@ -15,7 +15,7 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "fr.lbc.albums.CustomTestRunner"
     }
 
     buildTypes {
@@ -33,6 +33,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
     }
 }
 
@@ -79,8 +82,13 @@ dependencies {
 
     // Test
     testImplementation "junit:junit:${versions.jUnit}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+    testImplementation "androidx.arch.core:core-testing:${versions.androidxArchTesting}"
 
     androidTestImplementation "androidx.test.ext:junit:${versions.androidxTestJUnit}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.androidxTestEspresso}"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:${versions.hilt}"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:${versions.hilt}"
 
 }

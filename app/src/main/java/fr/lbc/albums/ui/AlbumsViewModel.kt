@@ -25,9 +25,6 @@ class AlbumsViewModel @Inject constructor(private val repository: AlbumRepositor
     private var _uiState = MutableEventLiveData<MainEvent<Any>>()
     val uiState: EventLiveData<MainEvent<Any>> = _uiState
 
-    init {
-        refreshAlbums()
-    }
 
     fun refreshAlbums() {
         viewModelScope.launch {
