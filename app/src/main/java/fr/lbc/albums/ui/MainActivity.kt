@@ -1,15 +1,19 @@
 package fr.lbc.albums.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import fr.lbc.albums.R
 import fr.lbc.albums.databinding.ActivityMainBinding
-import fr.lbc.albums.utils.EventObserver
 import fr.lbc.albums.utils.MultipleEventObserver
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,16 +25,29 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        val swipeRefresh = binding.swipeRefresh.apply {
+            setColorSchemeResources(R.color.color_primary, R.color.color_secondary)
+        }
+
         val adapter = AlbumsAdapter(binding.emptyView)
-        binding.recyclerView.adapter = adapter
-
-        val swipeRefresh = binding.swipeRefresh
-
-        val viewModel = ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
-
-            albumsLiveData.observe(this@MainActivity, EventObserver { event ->
-                adapter.setAlbums(event.peek())
+        binding.recyclerView.apply {
+            this.adapter = adapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                val layoutManager = this@apply.layoutManager as LinearLayoutManager
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    swipeRefresh.isEnabled =
+                        layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                }
             })
+        }
+
+        val viewModel: AlbumsViewModel by viewModels()
+        viewModel.apply {
+
+            albumsLiveData.observe(this@MainActivity) {
+                adapter.setAlbums(it)
+            }
 
             uiState.observe(this@MainActivity, MultipleEventObserver { event ->
                 when (event) {

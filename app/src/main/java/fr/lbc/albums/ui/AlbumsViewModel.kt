@@ -1,7 +1,6 @@
 package fr.lbc.albums.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,17 +9,19 @@ import fr.lbc.albums.R
 import fr.lbc.albums.data.Result
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.repository.AlbumRepository
-import fr.lbc.albums.utils.Event
 import fr.lbc.albums.utils.EventLiveData
 import fr.lbc.albums.utils.MutableEventLiveData
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
-class AlbumsViewModel @Inject constructor(private val repository: AlbumRepository) : ViewModel() {
+class AlbumsViewModel @Inject constructor(
+    private val repository: AlbumRepository) : ViewModel() {
 
-    val albumsLiveData: LiveData<Event<List<Album>>> = repository.getAlbums().asLiveData()
+    val albumsLiveData: LiveData<List<Album>> = repository.getAlbums().asLiveData()
 
     private var _uiState = MutableEventLiveData<MainEvent<Any>>()
     val uiState: EventLiveData<MainEvent<Any>> = _uiState

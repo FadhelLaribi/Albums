@@ -2,12 +2,10 @@ package fr.lbc.albums.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import fr.lbc.albums.R
-import fr.lbc.albums.assertEventEqual
 import fr.lbc.albums.assertEventsEqual
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.repository.AlbumFakeRepository
 import fr.lbc.albums.getOrAwaitValue
-import fr.lbc.albums.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancelChildren
@@ -17,6 +15,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -44,15 +43,14 @@ class AlbumsViewModelTest {
         // ARRANGE
         val firstAlbum = Album(1, 1, "album 1", "url", "url")
         val secondAlbum = Album(1, 2, "album 2", "url", "url")
-        val albums = arrayListOf(firstAlbum, secondAlbum)
-        repository.setAlbums(albums)
-        val expected = Event(albums)
+        val expected = arrayListOf(firstAlbum, secondAlbum)
+        repository.setAlbums(expected)
 
         // ACT
         val actual = viewModel.albumsLiveData.getOrAwaitValue()
 
         // ASSERT
-        actual.assertEventEqual(expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -64,7 +62,7 @@ class AlbumsViewModelTest {
         val albumsLiveData = viewModel.albumsLiveData
 
         // ASSERT
-        Assert.assertTrue(albumsLiveData.getOrAwaitValue().peek().isEmpty())
+        Assert.assertTrue(albumsLiveData.getOrAwaitValue().isEmpty())
     }
 
     @Test

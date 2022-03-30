@@ -1,15 +1,14 @@
 package fr.lbc.albums.data.repository
 
 import fr.lbc.albums.data.Result
-import fr.lbc.albums.assertEventEqual
 import fr.lbc.albums.data.local.AlbumFakeLocalDataSource
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.remote.AlbumFakeRemoteDataSource
-import fr.lbc.albums.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -34,15 +33,14 @@ class AlbumRepositoryTest {
     @Test
     fun `get albums should return albums list from the local data source`() = runTest {
         // ARRANGE
-        val albums: List<Album> = arrayListOf(firstAlbum)
-        localDataSource.saveAlbums(albums)
-        val expected = Event(albums)
+        val expected: List<Album> = arrayListOf(firstAlbum)
+        localDataSource.saveAlbums(expected)
 
         // ACT
         val actual = albumRepository.getAlbums().first()
 
         // ASSERT
-        expected.assertEventEqual(actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -54,7 +52,7 @@ class AlbumRepositoryTest {
         val actual = albumRepository.getAlbums().first()
 
         // ASSERT
-        assertTrue(actual.peek().isEmpty())
+        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -84,15 +82,15 @@ class AlbumRepositoryTest {
     fun `refresh album should store data in local data source if remote data source succeeds`() =
         runTest {
             // ARRANGE
-            val albums = arrayListOf(firstAlbum, secondAlbum)
-            remoteDataSource.albums = albums
-            val expected = Event(albums)
+            val expected = arrayListOf(firstAlbum, secondAlbum)
+            remoteDataSource.albums = expected
 
             // ACT
             albumRepository.refreshAlbums()
             val actual = albumRepository.getAlbums().first()
 
             // ASSERT
-            expected.assertEventEqual(actual)
+            assertEquals(expected, actual)
+
         }
 }

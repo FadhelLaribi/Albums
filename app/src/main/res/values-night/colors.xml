@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#006358</color>
+    <color name="color_primary_dark">#00382f</color>
+    <color name="color_secondary">#c41757</color>
+    <color name="color_secondary_dark">#8d002f</color>
+    <color name="color_background">#292929</color>
+    <color name="color_surface">#333333</color>
+    <color name="color_on_surface">@android:color/white</color>
+    <color name="color_grey">#c1c6cf</color>
+    <color name="color_text_primary">@android:color/white</color>
+    <color name="mask">#40ffffff</color>
+</resources>

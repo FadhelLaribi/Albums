@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
  * already been handled.
  */
 
-@Suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST", "unused")
 class EventObserver<R>(private val onEventUnconsumed: (R) -> Unit) : Observer<R> {
     override fun onChanged(value: R) {
         (value as Event<*>).consume(onEventUnconsumed as (Event<*>) -> Unit)
