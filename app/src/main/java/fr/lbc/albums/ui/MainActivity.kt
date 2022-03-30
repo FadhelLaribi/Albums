@@ -3,6 +3,9 @@ package fr.lbc.albums.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.R
@@ -24,11 +27,21 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val adapter = AlbumsAdapter(binding.emptyView)
-        binding.recyclerView.adapter = adapter
-
         val swipeRefresh = binding.swipeRefresh.apply {
             setColorSchemeResources(R.color.color_primary, R.color.color_secondary)
+        }
+
+        val adapter = AlbumsAdapter(binding.emptyView)
+        binding.recyclerView.apply {
+            this.adapter = adapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                val layoutManager = this@apply.layoutManager as LinearLayoutManager
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    swipeRefresh.isEnabled =
+                        layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                }
+            })
         }
 
         val viewModel: AlbumsViewModel by viewModels()
