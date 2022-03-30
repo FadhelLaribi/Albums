@@ -36,7 +36,7 @@ class AlbumsViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         repository = AlbumFakeRepository()
-        viewModel = AlbumsViewModel(repository)
+        viewModel = AlbumsViewModel(repository, testDispatcher)
     }
 
     @Test

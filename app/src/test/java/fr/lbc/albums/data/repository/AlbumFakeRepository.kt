@@ -11,9 +11,9 @@ class AlbumFakeRepository: AlbumRepository {
     private var albums: ArrayList<Album> = arrayListOf()
     var shouldReturnError = false
 
-    override fun getAlbums(): Flow<Event<List<Album>>> {
+    override fun getAlbums(): Flow<List<Album>> {
         return flow {
-            emit(Event(albums))
+            emit(albums)
         }
     }
 

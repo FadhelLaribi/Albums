@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
 @Suppress("unused")
-@ExperimentalCoroutinesApi
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class RepositoryModule {

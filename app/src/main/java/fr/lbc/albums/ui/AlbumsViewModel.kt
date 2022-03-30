@@ -12,14 +12,23 @@ import fr.lbc.albums.data.repository.AlbumRepository
 import fr.lbc.albums.utils.Event
 import fr.lbc.albums.utils.EventLiveData
 import fr.lbc.albums.utils.MutableEventLiveData
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
-class AlbumsViewModel @Inject constructor(private val repository: AlbumRepository) : ViewModel() {
+class AlbumsViewModel @Inject constructor(
+    private val repository: AlbumRepository,
+    dispatcherIO: CoroutineDispatcher
+) : ViewModel() {
 
-    val albumsLiveData: LiveData<Event<List<Album>>> = repository.getAlbums().asLiveData()
+    val albumsLiveData: LiveData<Event<List<Album>>> =
+        repository.getAlbums().mapLatest { Event(it) }.flowOn(dispatcherIO).asLiveData()
 
     private var _uiState = MutableEventLiveData<MainEvent<Any>>()
     val uiState: EventLiveData<MainEvent<Any>> = _uiState

@@ -6,6 +6,6 @@ import fr.lbc.albums.utils.Event
 import kotlinx.coroutines.flow.Flow
 
 interface AlbumRepository {
-    fun getAlbums(): Flow<Event<List<Album>>>
+    fun getAlbums(): Flow<List<Album>>
     suspend fun refreshAlbums(): Result<Unit>
 }

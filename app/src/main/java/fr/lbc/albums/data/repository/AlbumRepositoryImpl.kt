@@ -11,14 +11,13 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 class AlbumRepositoryImpl @Inject constructor(
     private val remoteDataSource: AlbumRemoteDataSource,
     private val localDataSource: AlbumLocalDataSource,
     private val dispatcher: CoroutineDispatcher
 ) : AlbumRepository {
 
-    override fun getAlbums() = localDataSource.getAlbums().mapLatest { Event(it) }.flowOn(dispatcher)
+    override fun getAlbums() = localDataSource.getAlbums()
 
     override suspend fun refreshAlbums(): Result<Unit> {
         return withContext(dispatcher) {
