@@ -2,15 +2,17 @@ package fr.lbc.albums.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.R
 import fr.lbc.albums.databinding.ActivityMainBinding
 import fr.lbc.albums.utils.EventObserver
 import fr.lbc.albums.utils.MultipleEventObserver
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +31,8 @@ class MainActivity : AppCompatActivity() {
             setColorSchemeResources(R.color.color_primary, R.color.color_secondary)
         }
 
-        val viewModel = ViewModelProvider(this)[AlbumsViewModel::class.java].apply {
+        val viewModel: AlbumsViewModel by viewModels()
+        viewModel.apply {
 
             albumsLiveData.observe(this@MainActivity, EventObserver { event ->
                 adapter.setAlbums(event.peek())
