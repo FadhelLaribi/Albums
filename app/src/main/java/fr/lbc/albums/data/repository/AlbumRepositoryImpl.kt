@@ -24,6 +24,13 @@ class AlbumRepositoryImpl @Inject constructor(
         return withContext(dispatcher) {
             val result = remoteDataSource.refreshAlbums()
             if (result is Result.Success) {
+                // Deleting all the stored albums and inserting the new ones is not very optimised.
+                // For API calls in real scenarios we can use etag to avoid unnecessary treatment
+                // if data is unchanged. For huge contents of data like this case it's better
+                // to use pagination for the web services that support it.
+                // Pagination allows us to load and display small portions of data at a time
+                // and synchronize it with local storage.Loading partial data on demand reduces
+                // usage of network bandwidth and system resources.
                 localDataSource.saveAlbums(result.data)
                 Result.Success(Unit)
             } else result as Result.Error
