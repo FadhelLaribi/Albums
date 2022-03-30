@@ -1,16 +1,14 @@
 package fr.lbc.albums.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.R
 import fr.lbc.albums.databinding.ActivityMainBinding
-import fr.lbc.albums.utils.EventObserver
 import fr.lbc.albums.utils.MultipleEventObserver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
