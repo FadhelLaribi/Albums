@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         val viewModel: AlbumsViewModel by viewModels()
         viewModel.apply {
 
-            albumsLiveData.observe(this@MainActivity, EventObserver { event ->
-                adapter.setAlbums(event.peek())
-            })
+            albumsLiveData.observe(this@MainActivity) {
+                adapter.setAlbums(it)
+            }
 
             uiState.observe(this@MainActivity, MultipleEventObserver { event ->
                 when (event) {
