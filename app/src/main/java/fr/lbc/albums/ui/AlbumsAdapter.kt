@@ -5,27 +5,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.databinding.AlbumItemBinding
 import fr.lbc.albums.utils.loadUrl
 
 class AlbumsAdapter(private val emptyView: View) :
-    RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
+    ListAdapter<Album, AlbumsAdapter.AlbumViewHolder>(AlbumDiffCallback()) {
 
-    private var items: List<Album> = emptyList()
     private var recyclerView: RecyclerView? = null
 
     fun setAlbums(items: List<Album>) {
-        val diffResult =
-            DiffUtil.calculateDiff(AlbumDiffCallback(this.items, items))
-        this.items = items
-        if (recyclerView != null) {
-            val visibility = itemCount > 0
-            recyclerView!!.isVisible = visibility
-            emptyView.isVisible = !visibility
+        val previousItemCount = itemCount
+        submitList(items) {
+            val currentItemCount = itemCount
+            val toggleVisibility =
+                (previousItemCount == 0 && currentItemCount > 0) || (previousItemCount > 0 && currentItemCount == 0)
+            if (toggleVisibility && recyclerView != null) {
+                val visible = currentItemCount > 0
+                recyclerView!!.isVisible = visible
+                emptyView.isVisible = !visible
+            }
         }
-        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
@@ -35,10 +37,8 @@ class AlbumsAdapter(private val emptyView: View) :
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount() = items.size
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
@@ -63,17 +63,11 @@ class AlbumsAdapter(private val emptyView: View) :
         }
     }
 
-    class AlbumDiffCallback(private val oldList: List<Album>, private val newList: List<Album>) :
-        DiffUtil.Callback() {
+    class AlbumDiffCallback : DiffUtil.ItemCallback<Album>() {
 
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition].id == newList[newItemPosition].id
+        override fun areItemsTheSame(oldItem: Album, newItem: Album) = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            oldList[oldItemPosition] == newList[newItemPosition]
+        override fun areContentsTheSame(oldItem: Album, newItem: Album) = oldItem == newItem
 
-        override fun getOldListSize(): Int = oldList.size
-
-        override fun getNewListSize(): Int = newList.size
     }
 }
