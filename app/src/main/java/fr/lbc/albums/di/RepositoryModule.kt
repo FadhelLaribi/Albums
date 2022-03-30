@@ -13,6 +13,7 @@ import fr.lbc.albums.data.repository.AlbumRepositoryImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
+@Suppress("unused")
 @ExperimentalCoroutinesApi
 @InstallIn(SingletonComponent::class)
 @Module
