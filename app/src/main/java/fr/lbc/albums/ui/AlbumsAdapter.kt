@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.databinding.AlbumItemBinding
+import fr.lbc.albums.utils.isDarkThemeEnabled
 import fr.lbc.albums.utils.loadUrl
 
 class AlbumsAdapter(private val emptyView: View) :
     ListAdapter<Album, AlbumsAdapter.AlbumViewHolder>(AlbumDiffCallback()) {
 
+    private val isDarkThemeEnabled = isDarkThemeEnabled(emptyView.context)
     private var recyclerView: RecyclerView? = null
 
     fun setAlbums(items: List<Album>) {
@@ -59,6 +61,7 @@ class AlbumsAdapter(private val emptyView: View) :
             binding.apply {
                 title.text = item.title
                 image.loadUrl(item.url)
+                mask.isVisible = isDarkThemeEnabled
             }
         }
     }

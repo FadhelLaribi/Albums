@@ -2,8 +2,12 @@
 <resources>
     <color name="color_primary">#008577</color>
     <color name="color_primary_dark">#00574b</color>
-    <color name="color_secondary">#D81B60</color>
+    <color name="color_secondary">#d81b60</color>
     <color name="color_secondary_dark">#a00037</color>
-    <color name="color_background">#F1F4F9</color>
-    <color name="color_grey">#D7DCE5</color>
+    <color name="color_background">#f1f4f9</color>
+    <color name="color_surface">@android:color/white</color>
+    <color name="color_on_surface">@android:color/black</color>
+    <color name="color_grey">#d7dce5</color>
+    <color name="color_text_primary">@android:color/black</color>
+    <color name="mask">@android:color/transparent</color>
 </resources>

@@ -12,9 +12,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- other colors -->
         <item name="android:colorBackground" tools:targetApi="l">@color/color_background</item>
-        <item name="colorSurface" tools:targetApi="l">@android:color/white</item>
-        <item name="colorOnSurface" tools:targetApi="l">@android:color/black</item>
-        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="colorSurface" tools:targetApi="l">@color/color_surface</item>
+        <item name="colorOnSurface" tools:targetApi="l">@color/color_on_surface</item>
+        <item name="android:textColorPrimary">@color/color_text_primary</item>
         <!-- components styles -->
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
     </style>
