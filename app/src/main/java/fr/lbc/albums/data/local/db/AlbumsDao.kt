@@ -7,7 +7,7 @@ import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AlbumDao {
+interface AlbumsDao {
 
     @Insert
     fun insertAll(albums: List<AlbumEntity>)

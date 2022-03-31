@@ -1,11 +1,11 @@
 package fr.lbc.albums.data.repository
 
 import fr.lbc.albums.data.Result
-import fr.lbc.albums.data.local.AlbumLocalDataSource
+import fr.lbc.albums.data.local.AlbumsLocalDataSource
 import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.model.mapper.toAlbum
 import fr.lbc.albums.data.model.mapper.toAlbumEntity
-import fr.lbc.albums.data.remote.AlbumRemoteDataSource
+import fr.lbc.albums.data.remote.AlbumsRemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -15,11 +15,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class AlbumRepositoryImpl @Inject constructor(
-    private val remoteDataSource: AlbumRemoteDataSource,
-    private val localDataSource: AlbumLocalDataSource,
+class AlbumsRepositoryImpl @Inject constructor(
+    private val remoteDataSource: AlbumsRemoteDataSource,
+    private val localDataSource: AlbumsLocalDataSource,
     private val dispatcher: CoroutineDispatcher
-) : AlbumRepository {
+) : AlbumsRepository {
 
     override fun getAlbums(): Flow<List<Album>> {
         return localDataSource.getAlbums().mapLatest { list -> list.map { it.toAlbum() } }

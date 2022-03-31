@@ -4,7 +4,7 @@ import androidx.test.filters.MediumTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import fr.lbc.albums.TestAppModule.TestDatabase
-import fr.lbc.albums.data.local.db.AlbumDao
+import fr.lbc.albums.data.local.db.AlbumsDao
 import fr.lbc.albums.data.local.db.AppDatabase
 import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 @MediumTest
-class AlbumDaoTest {
+class AlbumsDaoTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -33,12 +33,12 @@ class AlbumDaoTest {
     private val firstAlbum = AlbumEntity(1, 1, "album1", "url", "thumbnailUrl")
     private val secondAlbum = AlbumEntity(2, 1, "album2", "url", "thumbnailUrl")
 
-    private lateinit var albumDao: AlbumDao
+    private lateinit var albumsDao: AlbumsDao
 
     @Before
     fun setUp() {
         hiltRule.inject()
-        albumDao = database.albumDao()
+        albumsDao = database.albumDao()
     }
 
     @Test
@@ -47,8 +47,8 @@ class AlbumDaoTest {
         val albums = listOf(firstAlbum, secondAlbum)
 
         // ACT
-        albumDao.insertAll(albums)
-        val insertedAlbums = albumDao.getAll().first()
+        albumsDao.insertAll(albums)
+        val insertedAlbums = albumsDao.getAll().first()
 
         // ASSERT
         assertEquals(insertedAlbums, albums)
@@ -60,9 +60,9 @@ class AlbumDaoTest {
         val albums = listOf(firstAlbum, secondAlbum)
 
         // ACT
-        albumDao.insertAll(albums)
-        albumDao.deleteAll()
-        val storedAlbums = albumDao.getAll().first()
+        albumsDao.insertAll(albums)
+        albumsDao.deleteAll()
+        val storedAlbums = albumsDao.getAll().first()
 
         // ASSERT
         assertTrue(storedAlbums.isEmpty())

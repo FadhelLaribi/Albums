@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.lbc.albums.R
 import fr.lbc.albums.data.Result
 import fr.lbc.albums.data.model.Album
-import fr.lbc.albums.data.repository.AlbumRepository
+import fr.lbc.albums.data.repository.AlbumsRepository
 import fr.lbc.albums.utils.EventLiveData
 import fr.lbc.albums.utils.MutableEventLiveData
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlbumsViewModel @Inject constructor(
-    private val repository: AlbumRepository) : ViewModel() {
+    private val repository: AlbumsRepository) : ViewModel() {
 
     val albumsLiveData: LiveData<List<Album>> = repository.getAlbums().asLiveData()
 

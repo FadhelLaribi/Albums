@@ -4,7 +4,7 @@ import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class AlbumFakeLocalDataSource : AlbumLocalDataSource {
+class AlbumsFakeLocalDataSource : AlbumsLocalDataSource {
 
     private val albums: ArrayList<AlbumEntity> = arrayListOf()
 

@@ -1,11 +1,11 @@
 package fr.lbc.albums.data.repository
 
 import fr.lbc.albums.data.Result
-import fr.lbc.albums.data.local.AlbumFakeLocalDataSource
+import fr.lbc.albums.data.local.AlbumsFakeLocalDataSource
 import fr.lbc.albums.data.model.entity.AlbumEntity
 import fr.lbc.albums.data.model.mapper.toAlbum
 import fr.lbc.albums.data.model.to.AlbumTo
-import fr.lbc.albums.data.remote.AlbumFakeRemoteDataSource
+import fr.lbc.albums.data.remote.AlbumsFakeRemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -16,17 +16,17 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class AlbumRepositoryTest {
+class AlbumsRepositoryTest {
 
-    private lateinit var remoteDataSource: AlbumFakeRemoteDataSource
-    private lateinit var localDataSource: AlbumFakeLocalDataSource
-    private lateinit var albumRepository: AlbumRepositoryImpl
+    private lateinit var remoteDataSource: AlbumsFakeRemoteDataSource
+    private lateinit var localDataSource: AlbumsFakeLocalDataSource
+    private lateinit var albumRepository: AlbumsRepositoryImpl
 
     @Before
     fun createRepository() {
-        remoteDataSource = AlbumFakeRemoteDataSource()
-        localDataSource = AlbumFakeLocalDataSource()
-        albumRepository = AlbumRepositoryImpl(remoteDataSource, localDataSource, Dispatchers.IO)
+        remoteDataSource = AlbumsFakeRemoteDataSource()
+        localDataSource = AlbumsFakeLocalDataSource()
+        albumRepository = AlbumsRepositoryImpl(remoteDataSource, localDataSource, Dispatchers.IO)
     }
 
     @Test

@@ -4,8 +4,8 @@ import fr.lbc.albums.data.Result
 import fr.lbc.albums.data.model.to.AlbumTo
 import java.lang.Exception
 
-class AlbumFakeRemoteDataSource(var albums: MutableList<AlbumTo>? = mutableListOf()) :
-    AlbumRemoteDataSource {
+class AlbumsFakeRemoteDataSource(var albums: MutableList<AlbumTo>? = mutableListOf()) :
+    AlbumsRemoteDataSource {
 
     override suspend fun refreshAlbums(): Result<List<AlbumTo>> {
         if (albums != null) return Result.Success(albums!!)

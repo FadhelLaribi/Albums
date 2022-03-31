@@ -4,9 +4,9 @@ import androidx.test.filters.MediumTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import fr.lbc.albums.TestAppModule.TestDatabase
-import fr.lbc.albums.data.local.AlbumLocalDataSource
-import fr.lbc.albums.data.local.AlbumLocalDataSourceImpl
-import fr.lbc.albums.data.local.db.AlbumDao
+import fr.lbc.albums.data.local.AlbumsLocalDataSource
+import fr.lbc.albums.data.local.AlbumsLocalDataSourceImpl
+import fr.lbc.albums.data.local.db.AlbumsDao
 import fr.lbc.albums.data.local.db.AppDatabase
 import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 @MediumTest
-class AlbumLocalDataSourceTest {
+class AlbumsLocalDataSourceTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -34,14 +34,14 @@ class AlbumLocalDataSourceTest {
     private val firstAlbum = AlbumEntity(1, 1, "album1", "url", "thumbnailUrl")
     private val secondAlbum = AlbumEntity(2, 1, "album1", "url", "thumbnailUrl")
 
-    private lateinit var albumDao: AlbumDao
-    private lateinit var dataSource: AlbumLocalDataSource
+    private lateinit var albumsDao: AlbumsDao
+    private lateinit var dataSource: AlbumsLocalDataSource
 
     @Before
     fun setUp() {
         hiltRule.inject()
-        albumDao = database.albumDao()
-        dataSource = AlbumLocalDataSourceImpl(albumDao)
+        albumsDao = database.albumDao()
+        dataSource = AlbumsLocalDataSourceImpl(albumsDao)
     }
 
     @Test
