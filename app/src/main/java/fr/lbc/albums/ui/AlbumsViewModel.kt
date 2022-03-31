@@ -11,7 +11,6 @@ import fr.lbc.albums.data.model.Album
 import fr.lbc.albums.data.repository.AlbumRepository
 import fr.lbc.albums.utils.EventLiveData
 import fr.lbc.albums.utils.MutableEventLiveData
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
