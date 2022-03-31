@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Albums" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -9,11 +9,11 @@
         <item name="colorSecondary">@color/color_secondary</item>
         <item name="colorSecondaryVariant">@color/color_secondary_dark</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- other colors -->
-        <item name="android:colorBackground" tools:targetApi="l">@color/color_background</item>
-        <item name="colorSurface" tools:targetApi="l">@color/color_surface</item>
-        <item name="colorOnSurface" tools:targetApi="l">@color/color_on_surface</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="android:textColorPrimary">@color/color_text_primary</item>
         <!-- components styles -->
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>

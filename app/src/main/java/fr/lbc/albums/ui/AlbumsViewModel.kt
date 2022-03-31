@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 @HiltViewModel
 class AlbumsViewModel @Inject constructor(
     private val repository: AlbumRepository) : ViewModel() {

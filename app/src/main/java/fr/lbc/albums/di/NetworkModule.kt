@@ -5,16 +5,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fr.lbc.albums.BuildConfig.BASE_URL
 import fr.lbc.albums.data.remote.service.AlbumService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+@Suppress("unused")
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
 
-    private const val BASE_URL = "https://static.leboncoin.fr"
 
     @Singleton
     @Provides

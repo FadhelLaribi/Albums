@@ -12,7 +12,6 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -35,7 +34,9 @@
             android:paddingTop="12dp"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/album_item"
+            tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/empty_view"
@@ -45,7 +46,8 @@
             android:gravity="center"
             android:text="@string/no_albums"
             android:textAppearance="?textAppearanceSubtitle1"
-            app:drawableTopCompat="@drawable/ic_empty" />
+            app:drawableTopCompat="@drawable/ic_empty"
+            tools:visibility="gone" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

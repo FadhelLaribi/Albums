@@ -22,7 +22,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String","BASE_URL","\"https://static.leboncoin.fr\""
         }
+
+        debug {
+            buildConfigField "String","BASE_URL","\"https://static.leboncoin.fr\""
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
