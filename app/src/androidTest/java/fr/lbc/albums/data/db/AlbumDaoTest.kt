@@ -6,7 +6,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import fr.lbc.albums.TestAppModule.TestDatabase
 import fr.lbc.albums.data.local.db.AlbumDao
 import fr.lbc.albums.data.local.db.AppDatabase
-import fr.lbc.albums.data.model.Album
+import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -30,8 +30,8 @@ class AlbumDaoTest {
     @Inject
     lateinit var database: AppDatabase
 
-    private val firstAlbum = Album(1, 1, "album1", "url", "thumbnailUrl")
-    private val secondAlbum = Album(2, 1, "album2", "url", "thumbnailUrl")
+    private val firstAlbum = AlbumEntity(1, 1, "album1", "url", "thumbnailUrl")
+    private val secondAlbum = AlbumEntity(2, 1, "album2", "url", "thumbnailUrl")
 
     private lateinit var albumDao: AlbumDao
 

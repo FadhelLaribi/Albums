@@ -4,17 +4,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import fr.lbc.albums.data.model.Album
+import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AlbumDao {
 
     @Insert
-    fun insertAll(albums: List<Album>)
+    fun insertAll(albums: List<AlbumEntity>)
 
-    @Query("DELETE FROM album")
+    @Query("DELETE FROM albums")
     fun deleteAll()
 
-    @Query("SELECT * FROM album")
-    fun getAll(): Flow<List<Album>>
+    @Query("SELECT * FROM albums")
+    fun getAll(): Flow<List<AlbumEntity>>
 }

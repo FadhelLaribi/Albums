@@ -10,6 +10,7 @@ import fr.lbc.albums.data.remote.AlbumRemoteDataSource
 import fr.lbc.albums.data.remote.AlbumRemoteDataSourceImpl
 import fr.lbc.albums.data.repository.AlbumRepository
 import fr.lbc.albums.data.repository.AlbumRepositoryImpl
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
 @Suppress("unused")
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 @Module
 abstract class RepositoryModule {
 
+    @ExperimentalCoroutinesApi
     @Singleton
     @Binds
     abstract fun bindRepository(impl: AlbumRepositoryImpl): AlbumRepository

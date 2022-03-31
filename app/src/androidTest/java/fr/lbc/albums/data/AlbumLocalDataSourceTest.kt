@@ -8,7 +8,7 @@ import fr.lbc.albums.data.local.AlbumLocalDataSource
 import fr.lbc.albums.data.local.AlbumLocalDataSourceImpl
 import fr.lbc.albums.data.local.db.AlbumDao
 import fr.lbc.albums.data.local.db.AppDatabase
-import fr.lbc.albums.data.model.Album
+import fr.lbc.albums.data.model.entity.AlbumEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -31,8 +31,8 @@ class AlbumLocalDataSourceTest {
     @Inject
     lateinit var database: AppDatabase
 
-    private val firstAlbum = Album(1, 1, "album1", "url", "thumbnailUrl")
-    private val secondAlbum = Album(2, 1, "album1", "url", "thumbnailUrl")
+    private val firstAlbum = AlbumEntity(1, 1, "album1", "url", "thumbnailUrl")
+    private val secondAlbum = AlbumEntity(2, 1, "album1", "url", "thumbnailUrl")
 
     private lateinit var albumDao: AlbumDao
     private lateinit var dataSource: AlbumLocalDataSource
@@ -62,8 +62,8 @@ class AlbumLocalDataSourceTest {
         // ARRANGE
         val oldAlbums = arrayListOf(firstAlbum, secondAlbum)
         dataSource.saveAlbums(oldAlbums)
-        val thirdAlbum = Album(3, 1, "album3", "url", "thumbnailUrl")
-        val fourthAlbum = Album(4, 1, "album4", "url", "thumbnailUrl")
+        val thirdAlbum = AlbumEntity(3, 1, "album3", "url", "thumbnailUrl")
+        val fourthAlbum = AlbumEntity(4, 1, "album4", "url", "thumbnailUrl")
         val expected = arrayListOf(thirdAlbum, fourthAlbum)
 
         // ACT
