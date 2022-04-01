@@ -1,9 +1,11 @@
 package fr.lbc.albums.data.repository
 
 import fr.lbc.albums.data.Result
-import fr.lbc.albums.data.local.AlbumFakeLocalDataSource
-import fr.lbc.albums.data.model.Album
-import fr.lbc.albums.data.remote.AlbumFakeRemoteDataSource
+import fr.lbc.albums.data.local.AlbumsFakeLocalDataSource
+import fr.lbc.albums.data.model.entity.AlbumEntity
+import fr.lbc.albums.data.model.mapper.toAlbum
+import fr.lbc.albums.data.model.to.AlbumTo
+import fr.lbc.albums.data.remote.AlbumsFakeRemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -14,27 +16,28 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class AlbumRepositoryTest {
+class AlbumsRepositoryTest {
 
-    private val firstAlbum = Album(1, 1, "album 1", "url", "url")
-    private val secondAlbum = Album(1, 2, "album 2", "url", "url")
-
-    private lateinit var remoteDataSource: AlbumFakeRemoteDataSource
-    private lateinit var localDataSource: AlbumFakeLocalDataSource
-    private lateinit var albumRepository: AlbumRepositoryImpl
+    private lateinit var remoteDataSource: AlbumsFakeRemoteDataSource
+    private lateinit var localDataSource: AlbumsFakeLocalDataSource
+    private lateinit var albumRepository: AlbumsRepositoryImpl
 
     @Before
     fun createRepository() {
-        remoteDataSource = AlbumFakeRemoteDataSource()
-        localDataSource = AlbumFakeLocalDataSource()
-        albumRepository = AlbumRepositoryImpl(remoteDataSource, localDataSource, Dispatchers.IO)
+        remoteDataSource = AlbumsFakeRemoteDataSource()
+        localDataSource = AlbumsFakeLocalDataSource()
+        albumRepository = AlbumsRepositoryImpl(remoteDataSource, localDataSource, Dispatchers.IO)
     }
 
     @Test
     fun `get albums should return albums list from the local data source`() = runTest {
         // ARRANGE
-        val expected: List<Album> = arrayListOf(firstAlbum)
-        localDataSource.saveAlbums(expected)
+        val storedAlbums = listOf(
+            AlbumEntity(1, 1, "album 1", "url", "url"),
+            AlbumEntity(2, 1, "album 2", "url", "url")
+        )
+        localDataSource.saveAlbums(storedAlbums)
+        val expected = storedAlbums.map { it.toAlbum() }
 
         // ACT
         val actual = albumRepository.getAlbums().first()
@@ -82,8 +85,12 @@ class AlbumRepositoryTest {
     fun `refresh album should store data in local data source if remote data source succeeds`() =
         runTest {
             // ARRANGE
-            val expected = arrayListOf(firstAlbum, secondAlbum)
-            remoteDataSource.albums = expected
+            val resultAlbums = arrayListOf(
+                AlbumTo(1, 1, "album 1", "url", "url"),
+                AlbumTo(2, 1, "album 2", "url", "url")
+            )
+            remoteDataSource.albums = resultAlbums
+            val expected = resultAlbums.map { it.toAlbum() }
 
             // ACT
             albumRepository.refreshAlbums()

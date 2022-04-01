@@ -9,5 +9,5 @@
     <color name="color_on_surface">@android:color/black</color>
     <color name="color_grey">#d7dce5</color>
     <color name="color_text_primary">@android:color/black</color>
-    <color name="mask">@android:color/transparent</color>
+    <color name="color_mask">@android:color/transparent</color>
 </resources>

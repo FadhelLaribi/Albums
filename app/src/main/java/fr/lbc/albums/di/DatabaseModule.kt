@@ -11,6 +11,7 @@ import fr.lbc.albums.data.local.db.AppDatabase
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
+@Suppress("unused")
 @InstallIn(SingletonComponent::class)
 @Module
 object DatabaseModule {

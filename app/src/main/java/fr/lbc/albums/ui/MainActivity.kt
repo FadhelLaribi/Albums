@@ -10,10 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.lbc.albums.R
 import fr.lbc.albums.databinding.ActivityMainBinding
 import fr.lbc.albums.utils.MultipleEventObserver
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

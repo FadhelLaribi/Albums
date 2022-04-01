@@ -8,24 +8,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.lbc.albums.R
 import fr.lbc.albums.data.Result
 import fr.lbc.albums.data.model.Album
-import fr.lbc.albums.data.repository.AlbumRepository
+import fr.lbc.albums.data.repository.AlbumsRepository
 import fr.lbc.albums.utils.EventLiveData
 import fr.lbc.albums.utils.MutableEventLiveData
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 @HiltViewModel
-class AlbumsViewModel @Inject constructor(
-    private val repository: AlbumRepository) : ViewModel() {
+class AlbumsViewModel @Inject constructor(private val repository: AlbumsRepository) : ViewModel() {
 
     val albumsLiveData: LiveData<List<Album>> = repository.getAlbums().asLiveData()
 
     private var _uiState = MutableEventLiveData<MainEvent<Any>>()
     val uiState: EventLiveData<MainEvent<Any>> = _uiState
-
 
     fun refreshAlbums() {
         viewModelScope.launch {

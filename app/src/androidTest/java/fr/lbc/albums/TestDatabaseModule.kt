@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import fr.lbc.albums.data.local.db.AppDatabase
 import javax.inject.Qualifier
 
+@Suppress("unused")
 @Module
 @InstallIn(SingletonComponent::class)
 object TestAppModule {

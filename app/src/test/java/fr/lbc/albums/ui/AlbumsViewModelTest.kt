@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import fr.lbc.albums.R
 import fr.lbc.albums.assertEventsEqual
 import fr.lbc.albums.data.model.Album
-import fr.lbc.albums.data.repository.AlbumFakeRepository
+import fr.lbc.albums.data.repository.AlbumsFakeRepository
 import fr.lbc.albums.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +23,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class AlbumsViewModelTest {
 
-    private lateinit var repository: AlbumFakeRepository
+    private lateinit var repository: AlbumsFakeRepository
     private lateinit var viewModel: AlbumsViewModel
 
     private val testDispatcher = UnconfinedTestDispatcher()
@@ -34,15 +34,15 @@ class AlbumsViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        repository = AlbumFakeRepository()
+        repository = AlbumsFakeRepository()
         viewModel = AlbumsViewModel(repository)
     }
 
     @Test
     fun `albums live data should emit same albums as repository get albums`() = runTest {
         // ARRANGE
-        val firstAlbum = Album(1, 1, "album 1", "url", "url")
-        val secondAlbum = Album(1, 2, "album 2", "url", "url")
+        val firstAlbum = Album(1, "album 1", "url")
+        val secondAlbum = Album(1, "album 2", "url")
         val expected = arrayListOf(firstAlbum, secondAlbum)
         repository.setAlbums(expected)
 

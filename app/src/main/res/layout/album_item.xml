@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
@@ -15,32 +16,34 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:textAppearance="?textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="title" />
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
             android:contentDescription="@string/album_image_content_description"
             android:scaleType="centerCrop"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintDimensionRatio="@string/album_image_dimension_ratio"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:src="@color/color_grey" />
 
         <View
             android:id="@+id/mask"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/mask"
+            android:background="@color/color_mask"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/image"
             app:layout_constraintEnd_toEndOf="@id/image"
