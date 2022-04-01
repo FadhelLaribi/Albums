@@ -58,21 +58,22 @@ class AlbumsLocalDataSourceTest {
     }
 
     @Test
-    fun saveAlbums_getAlbums_should_save_then_return_provided_albums_while_deleting_old_ones() = runTest {
-        // ARRANGE
-        val oldAlbums = arrayListOf(firstAlbum, secondAlbum)
-        dataSource.saveAlbums(oldAlbums)
-        val thirdAlbum = AlbumEntity(3, 1, "album3", "url", "thumbnailUrl")
-        val fourthAlbum = AlbumEntity(4, 1, "album4", "url", "thumbnailUrl")
-        val expected = arrayListOf(thirdAlbum, fourthAlbum)
+    fun saveAlbums_getAlbums_should_save_then_return_provided_albums_while_deleting_old_ones() =
+        runTest {
+            // ARRANGE
+            val oldAlbums = arrayListOf(firstAlbum, secondAlbum)
+            dataSource.saveAlbums(oldAlbums)
+            val thirdAlbum = AlbumEntity(3, 1, "album3", "url", "thumbnailUrl")
+            val fourthAlbum = AlbumEntity(4, 1, "album4", "url", "thumbnailUrl")
+            val expected = arrayListOf(thirdAlbum, fourthAlbum)
 
-        // ACT
-        dataSource.saveAlbums(expected)
-        val actual = dataSource.getAlbums().first()
+            // ACT
+            dataSource.saveAlbums(expected)
+            val actual = dataSource.getAlbums().first()
 
-        // ASSERT
-        assertEquals(expected, actual)
-    }
+            // ASSERT
+            assertEquals(expected, actual)
+        }
 
     @After
     fun tearDown() {

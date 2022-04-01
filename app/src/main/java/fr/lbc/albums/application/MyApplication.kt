@@ -7,13 +7,13 @@ import fr.lbc.albums.utils.applySystemTheme
 import timber.log.Timber
 
 @HiltAndroidApp
-class MyApplication: Application() {
+class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         if (BuildConfig.DEBUG)
-        Timber.plant(Timber.DebugTree())
+            Timber.plant(Timber.DebugTree())
 
         applySystemTheme()
     }

@@ -41,8 +41,8 @@ class AlbumsViewModelTest {
     @Test
     fun `albums live data should emit same albums as repository get albums`() = runTest {
         // ARRANGE
-        val firstAlbum = Album(1,  "album 1", "url")
-        val secondAlbum = Album(1,  "album 2", "url")
+        val firstAlbum = Album(1, "album 1", "url")
+        val secondAlbum = Album(1, "album 2", "url")
         val expected = arrayListOf(firstAlbum, secondAlbum)
         repository.setAlbums(expected)
 

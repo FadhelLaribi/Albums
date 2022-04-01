@@ -16,14 +16,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumsViewModel @Inject constructor(
-    private val repository: AlbumsRepository) : ViewModel() {
+class AlbumsViewModel @Inject constructor(private val repository: AlbumsRepository) : ViewModel() {
 
     val albumsLiveData: LiveData<List<Album>> = repository.getAlbums().asLiveData()
 
     private var _uiState = MutableEventLiveData<MainEvent<Any>>()
     val uiState: EventLiveData<MainEvent<Any>> = _uiState
-
 
     fun refreshAlbums() {
         viewModelScope.launch {

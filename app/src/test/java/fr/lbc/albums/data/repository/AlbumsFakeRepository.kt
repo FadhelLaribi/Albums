@@ -5,7 +5,7 @@ import fr.lbc.albums.data.model.Album
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class AlbumsFakeRepository: AlbumsRepository {
+class AlbumsFakeRepository : AlbumsRepository {
 
     private var albums: ArrayList<Album> = arrayListOf()
     var shouldReturnError = false
